@@ -1,0 +1,75 @@
+{
+    "permissions": {
+        "allow": [
+            "Bash(npm run *)",
+            "Bash(npm install *)",
+            "Bash(ls *)",
+            "Bash(rm *)",
+            "Bash(npm uninstall *)"
+        ]
+    },
+    "$version": 3,
+    "env": {
+        "OPENAI_API_KEY": "sk-your-actual-openai-key-here",
+        "OPENROUTER_API_KEY": "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"
+    },
+    "modelProviders": {
+        "openai": [
+            {
+                "id": "gpt-4o",
+                "name": "GPT-4o",
+                "envKey": "OPENAI_API_KEY",
+                "baseUrl": "https://api.openai.com/v1",
+                "generationConfig": {
+                    "timeout": 60000,
+                    "maxRetries": 3,
+                    "enableCacheControl": true,
+                    "contextWindowSize": 128000,
+                    "modalities": {
+                        "image": true
+                    },
+                    "customHeaders": {
+                        "X-Client-Request-ID": "req-123"
+                    },
+                    "extra_body": {
+                        "enable_thinking": true,
+                        "service_tier": "priority"
+                    },
+                    "samplingParams": {
+                        "temperature": 0.2,
+                        "top_p": 0.8,
+                        "max_tokens": 4096,
+                        "presence_penalty": 0.1,
+                        "frequency_penalty": 0.1
+                    }
+                }
+            },
+            {
+                "id": "gpt-4o-mini",
+                "name": "GPT-4o Mini",
+                "envKey": "OPENAI_API_KEY",
+                "baseUrl": "https://api.openai.com/v1",
+                "generationConfig": {
+                    "timeout": 30000,
+                    "samplingParams": {
+                        "temperature": 0.5,
+                        "max_tokens": 2048
+                    }
+                }
+            },
+            {
+                "id": "openai/gpt-4o",
+                "name": "GPT-4o (via OpenRouter)",
+                "envKey": "OPENROUTER_API_KEY",
+                "baseUrl": "https://openrouter.ai/api/v1",
+                "generationConfig": {
+                    "timeout": 120000,
+                    "maxRetries": 3,
+                    "samplingParams": {
+                        "temperature": 0.7
+                    }
+                }
+            }
+        ]
+    }
+}
